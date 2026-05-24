@@ -16,27 +16,29 @@ public class Main {
         s.setRoll(10);
         s.setMarks(80);
 
+//        s.setId(3);
+//        s.setName("ramu Kumar");
+//        s.setRoll(100);
+//        s.setMarks(800);
+
         // Hibernate Configuration
         Configuration config = new Configuration();
         config.configure("hibernate.cfg.xml");
         config.addAnnotatedClass(Student.class);
 
-        // Build SessionFactory
         SessionFactory factory = config.buildSessionFactory();
 
-        // Open Session
         Session session = factory.openSession();
 
-        // Begin Transaction
+        Student s1 = session.get(Student.class, 1);
+        Student s2 = session.load(Student.class, 1);
+
         Transaction transaction = session.beginTransaction();
 
-        // Save Object
         session.persist(s);
 
-        // Commit Transaction
         transaction.commit();
 
-        // Close Resources
         session.close();
         factory.close();
 
